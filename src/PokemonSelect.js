@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import pokemonList from "./pokemonList";
-import { choice } from "./helpers";
+
 
 /* Select element to choose from common pokemon. */
 function PokemonSelect({ add, pokemon = pokemonList }) {
@@ -8,7 +8,7 @@ function PokemonSelect({ add, pokemon = pokemonList }) {
   const handleChange = evt => {
     setPokeIdx(evt.target.value);
   };
-
+  const lucky = Math.ceil(Math.random()*905)
   return (
     <div>
       <select onChange={handleChange}>
@@ -19,7 +19,7 @@ function PokemonSelect({ add, pokemon = pokemonList }) {
         ))}
       </select>
       <button onClick={() => add(pokemon[pokeIdx])}>Catch one!</button>
-      <button onClick={() => add(choice(pokemon))}>I'm feeling lucky</button>
+      <button onClick={() => add(lucky)}>I'm feeling lucky</button>
     </div>
   );
 }

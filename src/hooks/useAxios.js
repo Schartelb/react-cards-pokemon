@@ -1,28 +1,17 @@
-import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 
 const useAxios = (url) => {
-    const [response, setResponse] = useState(null);
-    const [error, setError] = useState('');
+    const [data, setState] = useState([])
+    const makeAPIcall = async (name = "") => {
+        const res = await axios.get(url + name)
+        setState([...data, res.data])
+    }
+    const clearCards = () => {
+        setState([])
+    }
 
-
-    const fetchData = () => {
-        axios.get(url)
-            .then((res) => {
-                setResponse(res.data);
-                console.log(res.data)
-            })
-            .catch((err) => {
-                setError(err);
-            })
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, [url]);
-
-    return { response, error};
-};
-
-export default useAxios;
+    return [data, makeAPIcall, clearCards]
+}
+export default useAxios
